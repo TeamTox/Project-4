@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flappy Bird</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+            width: 288px;
+            height: 512px;
+        }
+        #bird {
+            position: absolute;
+            width: 34px;
+            height: 24px;
+            background-image: url('bird.png');
+            background-repeat: no-repeat;
+        }
+        .pipe {
+            position: absolute;
+            width: 52px;
+            height: 320px;
+            background-image: url('pipe.png');
+            background-repeat: no-repeat;
+        }
+        #score {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <img id="bird" src="bird.png">
+    <img class="pipe" id="pipe1" src="pipe.png">
+    <img class="pipe" id="pipe2" src="pipe.png">
+    <div id="score">0</div>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var bird = document.getElementById("bird");
+        var pipes = [document.getElementById("pipe1"), document.getElementById("pipe2")];
+        var score = 0;
+
+        var birdX = 50;
+        var birdY = 200;
+        var birdSpeed = 0;
+
+        var pipeX = 300;
+        var pipeGap = 150;
+        var pipeSpeed = 2;
+        var pipeHeight = 320;
+
+        function draw() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the bird
+            ctx.drawImage(bird, birdX, birdY);
+
+            // Draw the pipes
+            for (var i = 0; i < pipes.length; i++) {
+                ctx.drawImage(pipes[i], pipeX, -pipeHeight + pipeGap, 52, pipeHeight);
+                ctx.drawImage(pipes[i], pipeX, pipeGap, 52, pipeHeight);
+            }
+
+            // Draw the score
+            ctx.fillText("Score: " + score, 10, 30);
+        }
+
+        function update() {
+            // Move the bird
+            birdY += birdSpeed;
+            birdSpeed += 0.5;
+
+            // Move the pipes
+            pipeX -= pipeSpeed;
+            if (pipeX < -52) {
+                pipeX = 288;
+                pipeHeight = Math.floor(Math.random() * 200) + 120;
+                pipeGap = Math.floor(Math.random() * 80) + 150;
+            }
+
+            // Check for collisions
+            if (birdY < 0 || birdY > 488 || (birdX + 34 > pipeX && birdX < pipeX + 52 &&
+                (birdY < pipeGap - 24 || birdY + 24 > pipeGap + 150))) {
+                alert("Game over! Your score is " + score);
+                location.reload();
+            }
+
+            // Check for scoring
+            if (birdX > pipeX + 52) {
+                score++;
+            }
+        }
+
+        function flap() {
+            birdSpeed = -8;
+        }
+
+        canvas.addEventListener("click", flap);
+        canvas.addEventListener("touchstart", flap);
+
+        setInterval(function() {
+            update();
+            draw();
+        }, 20);
+    </script>
+</body>
+</html>
