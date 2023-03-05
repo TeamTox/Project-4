@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flappy Bird</title>
+    <script src="flappybird.js"></script>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var game = new Game(ctx);
+        game.start();
+    </script>
+</body>
+</html>
