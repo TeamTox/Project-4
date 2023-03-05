@@ -1,0 +1,43 @@
+body {
+  background-color: #70c5ce;
+  margin: 0;
+  padding: 0;
+}
+
+#canvas {
+  margin: 0 auto;
+  display: block;
+  border: 1px solid black;
+}
+
+#menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: none;
+}
+
+#menu h1 {
+  font-size: 40px;
+  margin-top: 0;
+}
+
+#menu button {
+  font-size: 24px;
+  padding: 10px 20px;
+  margin: 20px;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#score {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
